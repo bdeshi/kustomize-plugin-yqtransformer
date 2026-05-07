@@ -1,0 +1,18 @@
+apiVersion: kustomize.bdeshi.space/v1
+kind: YqTransformer
+metadata:
+  name: yq-transformer-dev-label # this can be anything
+  annotations:
+    config.kubernetes.io/function: |
+      container:
+        image: ghcr.io/bdeshi/kustomize-plugin-yqtransformer:latest
+targets:
+  - apiVersion: apps/v1
+    kind: Deployment
+    spec:
+      template:
+        spec:
+          serviceAccountName: dev-app
+expression: |
+  .metadata.labels.environment = "dev"
+  | .spec.template.metadata.labels.environment = "dev"

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+spec:
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      serviceAccountName: demo-app
+      containers:
+        - name: app
+          image: app:demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-2
+spec:
+  selector:
+    matchLabels:
+      app: demo-app-2
+  template:
+    metadata:
+      labels:
+        app: demo-app-2
+    spec:
+      serviceAccountName: dev-app
+      containers:
+        - name: app
+          image: app:demo
